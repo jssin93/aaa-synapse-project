@@ -1,0 +1,38 @@
+{
+    "name": "churners_dataset",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "aaa-synapse-workspace-WorkspaceDefaultStorage",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "DelimitedText",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobFSLocation",
+                "fileName": "churners.csv",
+                "folderPath": "sparkpooldata",
+                "fileSystem": "aaafilesystem"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "quoteChar": "\""
+        },
+        "schema": [
+            {
+                "name": "char",
+                "type": "String"
+            },
+            {
+                "name": "timestamp",
+                "type": "String"
+            },
+            {
+                "name": "churn",
+                "type": "String"
+            }
+        ]
+    },
+    "type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,23 @@
+{
+    "name": "AzureSynapseAnalyticsSQLTable1",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "AzureSynapseAnalyticsLink2",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "AzureSqlDWTable",
+        "schema": [
+            {
+                "name": "col1",
+                "type": "int",
+                "precision": 10
+            }
+        ],
+        "typeProperties": {
+            "schema": "dbo",
+            "table": "dataflowtemptable"
+        }
+    },
+    "type": "Microsoft.Synapse/workspaces/datasets"
+}

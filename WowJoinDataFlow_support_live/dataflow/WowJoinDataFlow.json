@@ -1,0 +1,55 @@
+{
+    "name": "WowJoinDataFlow",
+    "properties": {
+        "type": "MappingDataFlow",
+        "typeProperties": {
+            "sources": [
+                {
+                    "dataset": {
+                        "referenceName": "wow_log_dataset",
+                        "type": "DatasetReference"
+                    },
+                    "name": "wowlogsource"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "churners_dataset",
+                        "type": "DatasetReference"
+                    },
+                    "name": "churnerssource"
+                },
+                {
+                    "dataset": {
+                        "referenceName": "zones_dataset",
+                        "type": "DatasetReference"
+                    },
+                    "name": "zonesdataset"
+                }
+            ],
+            "sinks": [
+                {
+                    "dataset": {
+                        "referenceName": "AzureSynapseAnalyticsSQLTable1",
+                        "type": "DatasetReference"
+                    },
+                    "name": "sinkdataset"
+                }
+            ],
+            "transformations": [
+                {
+                    "name": "idjoin"
+                },
+                {
+                    "name": "zonejoin"
+                },
+                {
+                    "name": "selectmapping"
+                },
+                {
+                    "name": "extractvalue"
+                }
+            ],
+            "script": "source(output(\n\t\tchar as string,\n\t\tlevel as string,\n\t\trace as string,\n\t\tcharclass as string,\n\t\tzone as string,\n\t\tguild as string,\n\t\ttimestamp as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> wowlogsource\nsource(output(\n\t\tchar as string,\n\t\ttimestamp as string,\n\t\tchurn as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> churnerssource\nsource(output(\n\t\tZone_Name as string,\n\t\tContinent as string,\n\t\tArea as string,\n\t\tZone as string,\n\t\tSubzone as string,\n\t\tType as string,\n\t\tSize as string,\n\t\tControlled as string,\n\t\tMin_req_level as string,\n\t\tMin_rec_level as string,\n\t\tMax_rec_level as string,\n\t\tMin_bot_level as string,\n\t\tMax_bot_level as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> zonesdataset\nwowlogsource, churnerssource join(wowlogsource@char == churnerssource@char,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> idjoin\nidjoin, zonesdataset join(wowlogsource@zone == Zone_Name,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> zonejoin\nzonejoin select(mapColumn(\n\t\tIdentifierId = wowlogsource@char,\n\t\tlevel,\n\t\trace,\n\t\tcharclass,\n\t\tzoneId = wowlogsource@zone,\n\t\tguild,\n\t\ttimestamp = wowlogsource@timestamp,\n\t\ttimestamp = churnerssource@timestamp,\n\t\tchurn,\n\t\tZone_Name,\n\t\tContinent,\n\t\tArea,\n\t\tSubzone,\n\t\tType,\n\t\tSize,\n\t\tControlled,\n\t\tMin_req_level,\n\t\tMin_rec_level,\n\t\tMax_rec_level,\n\t\tMin_bot_level,\n\t\tMax_bot_level\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> selectmapping\nselectmapping derive(IdentifierId = regexReplace(regexReplace(IdentifierId, \"IdentifierId\\\\(\", \"\"), \"\\\\)\", \"\"),\n\t\tzoneId = regexReplace(regexReplace(zoneId, \"ZoneidId\\\\(\", \"\"), \"\\\\)\", \"\")) ~> extractvalue\nextractvalue sink(input(\n\t\tcol1 as integer\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\trecreate:true,\n\tformat: 'table',\n\tstaged: true,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> sinkdataset"
+        }
+    }
+}

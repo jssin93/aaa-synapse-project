@@ -1,0 +1,6 @@
+selected resource name:		WowJoinDataFlow
+selected resource type:		dataflow
+작업 영역 name:			aaa-synapse-workspace
+작업 영역 location:		koreacentral
+subscription id:		29ff0147-0b60-4de5-9688-4bdd62bb42e0
+time of download (UTC):		Thu, 18 Feb 2021 04:12:33 GMT

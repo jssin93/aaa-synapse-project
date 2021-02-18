@@ -1,0 +1,54 @@
+{
+    "name": "wow_log_dataset",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "aaa-synapse-workspace-WorkspaceDefaultStorage",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "DelimitedText",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobFSLocation",
+                "fileName": "WoW_Logs.csv",
+                "folderPath": "sparkpooldata",
+                "fileSystem": "aaafilesystem"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "quoteChar": "\""
+        },
+        "schema": [
+            {
+                "name": "char",
+                "type": "String"
+            },
+            {
+                "name": "level",
+                "type": "String"
+            },
+            {
+                "name": "race",
+                "type": "String"
+            },
+            {
+                "name": "charclass",
+                "type": "String"
+            },
+            {
+                "name": "zone",
+                "type": "String"
+            },
+            {
+                "name": "guild",
+                "type": "String"
+            },
+            {
+                "name": "timestamp",
+                "type": "String"
+            }
+        ]
+    },
+    "type": "Microsoft.Synapse/workspaces/datasets"
+}

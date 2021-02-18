@@ -1,0 +1,22 @@
+{
+    "now": "2021-02-18T04:12:33.231Z",
+    "perfNow": 8460014.625000069,
+    "diagnosticCorrelation": "85465885-c30b-4132-9bbd-480711345c34",
+    "source": "DownloadSupportFiles",
+    "environment": {
+        "productName": "a365",
+        "buildVersion": "21.0206.05",
+        "environmentType": 9,
+        "resourceName": "aaa-synapse-workspace",
+        "resourceRegion": "koreacentral",
+        "resourceGroup": "AAA-24-RG",
+        "subscriptionId": "29ff0147-0b60-4de5-9688-4bdd62bb42e0",
+        "sessionId": "ylGFq",
+        "operationId": "6ORaP",
+        "gitType": "live"
+    },
+    "additionalInfo": {
+        "selectedResource": "WowJoinDataFlow",
+        "selectedResourceType": "dataflow"
+    }
+}

@@ -1,0 +1,78 @@
+{
+    "name": "zones_dataset",
+    "properties": {
+        "linkedServiceName": {
+            "referenceName": "aaa-synapse-workspace-WorkspaceDefaultStorage",
+            "type": "LinkedServiceReference"
+        },
+        "annotations": [],
+        "type": "DelimitedText",
+        "typeProperties": {
+            "location": {
+                "type": "AzureBlobFSLocation",
+                "fileName": "zones.csv",
+                "folderPath": "sparkpooldata",
+                "fileSystem": "aaafilesystem"
+            },
+            "columnDelimiter": ",",
+            "escapeChar": "\\",
+            "firstRowAsHeader": true,
+            "quoteChar": "\""
+        },
+        "schema": [
+            {
+                "name": "Zone_Name",
+                "type": "String"
+            },
+            {
+                "name": "Continent",
+                "type": "String"
+            },
+            {
+                "name": "Area",
+                "type": "String"
+            },
+            {
+                "name": "Zone",
+                "type": "String"
+            },
+            {
+                "name": "Subzone",
+                "type": "String"
+            },
+            {
+                "name": "Type",
+                "type": "String"
+            },
+            {
+                "name": "Size",
+                "type": "String"
+            },
+            {
+                "name": "Controlled",
+                "type": "String"
+            },
+            {
+                "name": "Min_req_level",
+                "type": "String"
+            },
+            {
+                "name": "Min_rec_level",
+                "type": "String"
+            },
+            {
+                "name": "Max_rec_level",
+                "type": "String"
+            },
+            {
+                "name": "Min_bot_level",
+                "type": "String"
+            },
+            {
+                "name": "Max_bot_level",
+                "type": "String"
+            }
+        ]
+    },
+    "type": "Microsoft.Synapse/workspaces/datasets"
+}
